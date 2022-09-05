@@ -12,7 +12,7 @@ const areTheParenthesesEqual = (s) => {
             prev.push('fail')
         }
 
-        if (curr === ')' && prev[0] !== 'fail && prev.length > 0) {
+        if (curr === ')' && prev[0] !== 'fail' && prev.length > 0) {
             if (prev[prev.length - 1] === '(') {
                 prev.pop()
             } else {
