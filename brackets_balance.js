@@ -16,12 +16,15 @@ const areTheParenthesesEqual = (s) => {
             if (prev[prev.length - 1] === '(') {
                 prev.pop()
             } else {
+                let tmp = prev.length
+
                 for (let i = prev.length - 2; i >= 0; i--) {
                     if (prev[i] === '(') {
                         prev.splice(i, i + 1)
+                        break
                     }
                 }
-                prev.push('fail')
+                tmp = prev.length ? prev.push('fail') : prev
             }
         }
 
@@ -30,12 +33,17 @@ const areTheParenthesesEqual = (s) => {
             if (prev[prev.length - 1] === '[') {
                 prev.pop()
             } else {
+                let tmp = prev.length
+
                 for (let i = prev.length - 2; i >= 0; i--) {
                     if (prev[i] === '[') {
                         prev.splice(i, i + 1)
+                        break
                     }
                 }
-                prev.push('fail')
+
+                tmp = prev.length ? prev.push('fail') : prev
+
             }
         }
 
@@ -43,12 +51,17 @@ const areTheParenthesesEqual = (s) => {
             if (prev[prev.length - 1] === '{') {
                 prev.pop()
             } else {
+                let tmp = prev.length
+
                 for (let i = prev.length - 2; i >= 0; i--) {
                     if (prev[i] === '{') {
                         prev.splice(i, i + 1)
+                        break
                     }
                 }
-                prev.push('fail')
+
+                tmp = prev.length ? prev.push('fail') : prev
+
             }
         }
         return prev
