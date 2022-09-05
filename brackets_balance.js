@@ -1,80 +1,51 @@
 const areTheParenthesesEqual = (s) => {
 
     let sArray = s.split('');
+    let stack = [];
+    for (let i = 0; i < sArray.length; i++) {
 
-    const control = sArray.reduce((prev, curr) => {
-
-        if (curr === '(' || curr === '{' || curr === '[') {
-            prev.push(curr)
+        if (sArray[i] === '(' || sArray[i] === '{' || sArray[i] === '[') {
+            stack.push(sArray[i])
         }
 
-        if ((curr === ')' || curr === '}' || curr === ']') && prev.length === 0) {
-            prev.push('fail')
+        if ((sArray[i] === ')' || sArray[i] === '}' || sArray[i] === ']') && stack.length === 0) {
+            return false;
         }
 
-        if (curr === ')' && prev[0] !== 'fail' && prev.length > 0) {
-            if (prev[prev.length - 1] === '(') {
-                prev.pop()
+        if (sArray[i] === ')') {
+            if (stack[stack.length - 1] === '(') {
+                stack.pop()
             } else {
-                let tmp = prev.length
-
-                for (let i = prev.length - 2; i >= 0; i--) {
-                    if (prev[i] === '(') {
-                        prev.splice(i, i + 1)
-                        break
-                    }
-                }
-                tmp = prev.length ? prev.push('fail') : prev
+                return false;
             }
         }
 
-        if (curr === ']' && prev[0] !== 'fail' && prev.length > 0) {
-
-            if (prev[prev.length - 1] === '[') {
-                prev.pop()
+        if (sArray[i] === '}') {
+            if (stack[stack.length - 1] === '{') {
+                stack.pop()
             } else {
-                let tmp = prev.length
-
-                for (let i = prev.length - 2; i >= 0; i--) {
-                    if (prev[i] === '[') {
-                        prev.splice(i, i + 1)
-                        break
-                    }
-                }
-
-                tmp = prev.length ? prev.push('fail') : prev
-
+                return false;
             }
         }
 
-        if (curr === '}' && prev[0] !== 'fail' && prev.length > 0) {
-            if (prev[prev.length - 1] === '{') {
-                prev.pop()
+        if (sArray[i] === ']') {
+            if (stack[stack.length - 1] === '[') {
+                stack.pop()
             } else {
-                let tmp = prev.length
-
-                for (let i = prev.length - 2; i >= 0; i--) {
-                    if (prev[i] === '{') {
-                        prev.splice(i, i + 1)
-                        break
-                    }
-                }
-
-                tmp = prev.length ? prev.push('fail') : prev
-
+                return false;
             }
         }
-        return prev
 
-    }, []);
+    }
 
-    if (control.length === 0) {
+    if (stack.length === 0) {
         return true;
     } else {
         return false;
     }
 
 }
+
 
 console.log(areTheParenthesesEqual(' (( /*+ { -*/ ( ) } xxa )() as) '));
 console.log(areTheParenthesesEqual(' ()( xc {(( a) )} ()'));
